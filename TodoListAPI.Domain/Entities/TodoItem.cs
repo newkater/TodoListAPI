@@ -2,10 +2,8 @@
 
 namespace TodoListAPI.Domain.Entities;
 
-public class TodoItem
+public class TodoItem : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public string Description { get; set; }
 
     public ItemStatus Status { get; set; }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TodoListAPI.Domain.Entities;
 using TodoListAPI.Infrastructure.Data;
+using TodoListAPI.Web.Models;
 
 namespace TodoListAPI.Web.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class ItemCategoryController : ControllerBase
+
+public class ItemCategoryController : BaseApiController
 {
     private readonly AppDbContext _context;
 
@@ -18,7 +19,7 @@ public class ItemCategoryController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetCategories ()
     {
-        var categories = _context.ItemCategories;
+        var categories = await _context.ItemCategories.ToListAsync();
         return Ok(categories);
     }
 
@@ -28,6 +29,6 @@ public class ItemCategoryController : ControllerBase
         var category = new ItemCategory { Name = name };
         _context.ItemCategories.Add(category);
         await _context.SaveChangesAsync();
-        return Ok(category);
+        return Ok(new ItemCategoryModel(category.Id, category.Name));
     }
 }

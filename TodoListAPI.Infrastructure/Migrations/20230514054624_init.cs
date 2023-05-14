@@ -27,8 +27,7 @@ namespace TodoListAPI.Infrastructure.Migrations
                 name: "ItemTags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -79,7 +78,7 @@ namespace TodoListAPI.Infrastructure.Migrations
                 name: "ItemTagTodoItem",
                 columns: table => new
                 {
-                    ItemTagsId = table.Column<int>(type: "int", nullable: false),
+                    ItemTagsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TodoItemsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

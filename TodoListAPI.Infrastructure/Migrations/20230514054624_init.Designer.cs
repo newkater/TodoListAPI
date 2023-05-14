@@ -12,7 +12,7 @@ using TodoListAPI.Infrastructure.Data;
 namespace TodoListAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230513135152_init")]
+    [Migration("20230514054624_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -27,8 +27,8 @@ namespace TodoListAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("ItemTagTodoItem", b =>
                 {
-                    b.Property<int>("ItemTagsId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ItemTagsId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TodoItemsId")
                         .HasColumnType("uniqueidentifier");
@@ -57,11 +57,9 @@ namespace TodoListAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("TodoListAPI.Domain.Entities.ItemTag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
