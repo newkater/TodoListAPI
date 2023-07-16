@@ -1,10 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TodoListAPI.Application.ItemTag.Commands.CreateTag;
-using TodoListAPI.Application.ItemTag.Queries.GetTags;
-using TodoListAPI.Domain.Entities;
-using TodoListAPI.Infrastructure.Data;
+using TodoListAPI.Application.ItemTags.Commands.CreateTag;
+using TodoListAPI.Application.ItemTags.Commands.DeleteTag;
+using TodoListAPI.Application.ItemTags.Queries.GetTags;
 using TodoListAPI.Web.Models;
 
 namespace TodoListAPI.Web.Controllers;
@@ -28,5 +26,16 @@ public class ItemTagController : BaseApiController
     {
         var tag = await _mediator.Send(new CreateTagCommand(name));
         return Ok(new ItemTagModel(tag.Id, tag.Name));
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteTag(Guid id)
+    {
+        var result = await _mediator.Send(new DeleteTagCommand(id));
+        if (!result.IsDeleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
     }
 }
