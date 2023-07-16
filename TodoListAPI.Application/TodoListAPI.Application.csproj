@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -13,6 +13,14 @@
   <ItemGroup>
     <ProjectReference Include="..\TodoListAPI.Domain\TodoListAPI.Domain.csproj" />
     <ProjectReference Include="..\TodoListAPI.Infrastructure\TodoListAPI.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ItemTag\Commands\DeleteTag\" />
+    <Folder Include="ItemTag\Commands\UpdateTag\" />
+    <Folder Include="ItemCategory\" />
+    <Folder Include="ItemTag\Queries\GetItemTag\" />
+    <Folder Include="TodoList\" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TodoListAPI.Domain\TodoListAPI.Domain.csproj" />
+    <ProjectReference Include="..\TodoListAPI.Application\TodoListAPI.Application.csproj" />
   </ItemGroup>
 
 </Project>
