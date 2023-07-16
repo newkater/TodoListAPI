@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TodoListAPI.Application.Common.Interfaces;
 using TodoListAPI.Domain.Entities;
 
 namespace TodoListAPI.Infrastructure.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext : DbContext, IApplicationDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> contextOptions) : base(contextOptions)
     {

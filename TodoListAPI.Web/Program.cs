@@ -1,17 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using TodoListAPI.Domain.Interfaces;
-using TodoListAPI.Infrastructure.Data;
-using TodoListAPI.Infrastructure.Repositories;
 using TodoListAPI.Application;
+using TodoListAPI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlServer(connectionString));
-// Add services to the container.
-
-builder.Services.AddScoped<ITodoListRepository, TodoListRepository>();
-builder.Services.AddScoped<IItemTagRepository, ItemTagRepository>();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddApplicationServices();
 

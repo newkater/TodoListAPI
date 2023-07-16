@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace TodoListAPI.Application.ItemTags.Commands.DeleteTag
-{
-    internal class DeleteTagCommand
-    {
-    }
-}
+namespace TodoListAPI.Application.ItemTags.Commands.DeleteTag;
+
+public record DeleteTagCommand(Guid Id) : IRequest<DeleteTagCommandResponse>;

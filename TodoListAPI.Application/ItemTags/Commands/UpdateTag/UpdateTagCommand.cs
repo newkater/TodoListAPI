@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace TodoListAPI.Application.ItemTags.Commands.UpdateTag
-{
-    internal class UpdateTagCommand
-    {
-    }
-}
+namespace TodoListAPI.Application.ItemTags.Commands.UpdateTag;
+
+public record UpdateTagCommand(Guid Id, string Name) : IRequest<UpdateTagCommandResponse>;
