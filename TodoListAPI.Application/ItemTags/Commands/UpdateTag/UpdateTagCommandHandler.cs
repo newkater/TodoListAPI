@@ -19,12 +19,12 @@ internal class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand, Resul
         var itemTag = await _context.ItemTags.FindAsync(request.Id, cancellationToken);
         if (itemTag == null)
         {
-            return new Result<UpdateTagCommandResponse>(ItemTagErrors.NotFound(request.Id));
+            return ItemTagErrors.NotFound(request.Id);
         }
 
         itemTag.Name = request.Name;
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new Result<UpdateTagCommandResponse>(new UpdateTagCommandResponse(itemTag.Id, itemTag.Name));
+        return new UpdateTagCommandResponse(itemTag.Id, itemTag.Name);
     }
 }

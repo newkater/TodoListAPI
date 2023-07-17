@@ -29,7 +29,24 @@ public class Result<TResult>
 
     public bool IsError => !IsSuccess;
 
-    
+    public T Switch<T> (Func<TResult, T> onSuccess, Func<IEnumerable<Error>, T> onError)
+    {
+        if (IsError || Value is null) 
+        {
+            return onError(_errors);
+        }
+        else
+        {
+            return onSuccess(Value);
+        }
+    }
+
+    public static implicit operator Result<TResult> (TResult value) => new Result<TResult>(value);
+
+    public static implicit operator Result<TResult>(List<Error> errors) => new Result<TResult>(errors);
+
+    public static implicit operator Result<TResult>(Error error) => new Result<TResult>(error);
+
 }
 
 public class Result

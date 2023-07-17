@@ -45,11 +45,9 @@ public class ItemTagController : BaseApiController
     public async Task<ActionResult> UpdateTag(Guid id, string name)
     {
         var result = await _mediator.Send(new UpdateTagCommand(id, name));
-        if (result.IsError)
-        {
-            var error = result.Errors.First();
-            return Problem(error.Message, null, (int)error.StatusCode);
-        }
-        return Ok(result.Value);
+        
+        return result.Switch(
+            value => Ok(value),
+            errors => Problem(errors));
     }
 }
