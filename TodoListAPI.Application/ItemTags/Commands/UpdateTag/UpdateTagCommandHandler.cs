@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using TodoListAPI.Application.Common.Interfaces;
+using TodoListAPI.Domain.Common;
+using TodoListAPI.Domain.Errors;
 
 namespace TodoListAPI.Application.ItemTags.Commands.UpdateTag;
 
-internal class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand, UpdateTagCommandResponse>
+internal class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand, Result<UpdateTagCommandResponse>>
 {
     private readonly IApplicationDbContext _context;
 
@@ -12,17 +14,17 @@ internal class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommand, Updat
         _context = context;
     }
 
-    public async Task<UpdateTagCommandResponse> Handle(UpdateTagCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UpdateTagCommandResponse>> Handle(UpdateTagCommand request, CancellationToken cancellationToken)
     {
         var itemTag = await _context.ItemTags.FindAsync(request.Id, cancellationToken);
         if (itemTag == null)
         {
-            throw new ArgumentException("tag not found");
+            return new Result<UpdateTagCommandResponse>(ItemTagErrors.NotFound(request.Id));
         }
 
         itemTag.Name = request.Name;
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new UpdateTagCommandResponse(itemTag.Id, itemTag.Name);
+        return new Result<UpdateTagCommandResponse>(new UpdateTagCommandResponse(itemTag.Id, itemTag.Name));
     }
 }

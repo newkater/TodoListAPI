@@ -44,13 +44,12 @@ public class ItemTagController : BaseApiController
     [HttpPut("id")]
     public async Task<ActionResult> UpdateTag(Guid id, string name)
     {
-        try
+        var result = await _mediator.Send(new UpdateTagCommand(id, name));
+        if (result.IsError)
         {
-            var result = await _mediator.Send(new UpdateTagCommand(id, name));
-            return Ok(result);
-        } catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
+            var error = result.Errors.First();
+            return Problem(error.Message, null, (int)error.StatusCode);
         }
+        return Ok(result.Value);
     }
 }
