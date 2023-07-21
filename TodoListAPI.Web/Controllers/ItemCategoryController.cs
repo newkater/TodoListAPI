@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoListAPI.Application.ItemCategories.Commands.CreateCategory;
 using TodoListAPI.Application.ItemCategories.Commands.DeleteCategory;
+using TodoListAPI.Application.ItemCategories.Commands.UpdateCategory;
 using TodoListAPI.Application.ItemCategories.Queries.GetCategories;
+using TodoListAPI.Application.ItemTags.Commands.UpdateTag;
 using TodoListAPI.Web.Models;
 
 namespace TodoListAPI.Web.Controllers;
@@ -37,5 +39,15 @@ public class ItemCategoryController : BaseApiController
             return NotFound();
         }
         return NoContent();
+    }
+
+    [HttpPut("id")]
+    public async Task<ActionResult> UpdateCategory(Guid id, string name)
+    {
+        var result = await _mediator.Send(new UpdateCategoryCommand(id, name));
+
+        return result.Switch(
+            value => Ok(value),
+            errors => Problem(errors));
     }
 }
