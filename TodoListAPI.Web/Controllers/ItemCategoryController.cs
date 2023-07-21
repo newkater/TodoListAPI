@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TodoListAPI.Application.ItemCategories.Commands.CreateCategory;
+using TodoListAPI.Application.ItemCategories.Commands.DeleteCategory;
 using TodoListAPI.Application.ItemCategories.Queries.GetCategories;
 using TodoListAPI.Web.Models;
 
@@ -25,5 +26,16 @@ public class ItemCategoryController : BaseApiController
     {
         var tag = await _mediator.Send(new CreateCategoryCommand(name));
         return Ok(new ItemCategoryModel(tag.Id, tag.Name));
+    }
+
+    [HttpDelete("id")]
+    public async Task<ActionResult> DeleteCategory(Guid id)
+    {
+        var result = await _mediator.Send(new DeleteCategoryCommand(id));
+        if (!result.IsDeleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
     }
 }
