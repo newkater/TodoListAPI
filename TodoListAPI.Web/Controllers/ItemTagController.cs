@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using TodoListAPI.Application.ItemTags.Commands.CreateTag;
 using TodoListAPI.Application.ItemTags.Commands.DeleteTag;
 using TodoListAPI.Application.ItemTags.Commands.UpdateTag;

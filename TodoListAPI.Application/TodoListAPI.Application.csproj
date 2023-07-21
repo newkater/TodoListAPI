@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ItemCategory\" />
+    <Folder Include="ItemCategories\Commands\DeleteCategory\" />
+    <Folder Include="ItemCategories\Commands\UpdateCategory\" />
     <Folder Include="ItemTags\Queries\GetItemTag\" />
     <Folder Include="TodoList\" />
   </ItemGroup>
